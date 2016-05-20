@@ -11,7 +11,6 @@ controller.spawn({
 // Token for TestSlack
 //  token: ""
 // Token for WGUIT
-  token: ""
 }).startRTM()
 
 // give the bot something to listen for.
@@ -46,7 +45,7 @@ function spamCheck(spamTimer, durationMinutes)
 }
 //Beginning of Cisco catches
 var ciscoTimer = 0;
-controller.hears('cisco|ccent|ccna|icnd.?1|icnd.?2|100-101|100-102',['message_received','ambient'],function(bot,message) {
+controller.hears('C299|cisco|ccent|ccna|icnd.?1|icnd.?2|100-101|100-102',['message_received','ambient'],function(bot,message) {
   if (spamCheck(ciscoTimer))
   {
     ciscoTimer = moment();
@@ -57,7 +56,7 @@ controller.hears('cisco|ccent|ccna|icnd.?1|icnd.?2|100-101|100-102',['message_re
 
 //Beginning of Comptia catches
 var comptiaTimer = 0;
-controller.hears('220-80[12]|220-90[12]|220-70[12]|[Ll][Xx]0-10[34]|[Nn]10-006|[Ss][Yy]0-401|[Pp][Kk]0-003|[Aa]\\+|[Ss]ecurity\\+|[Nn]etwork\\+|[Pp]roject\\+|[Ll]inux\\+',['message_received','ambient'],function(bot,message) {
+controller.hears('C176|C178|C393|C394|C480|C697|C698|220-80[12]|220-90[12]|220-70[12]|[Ll][Xx]0-10[34]|[Nn]10-006|[Ss][Yy]0-401|[Pp][Kk]0-003|[Aa]\\+|[Ss]ecurity\\+|[Nn]etwork\\+|[Pp]roject\\+|[Ll]inux\\+',['message_received','ambient'],function(bot,message) {
   // Call the spamCheck function to make sure we don't botspam ala slackbot
   if (spamCheck(comptiaTimer))
   {
@@ -79,7 +78,7 @@ controller.hears('book.*?(sql|mysql|database|data (warehousing|processing|manage
   }
 });
 //controller.hears("/help.*?(sql|mysql|database|data (warehousing|processing|management))|(sql|mysql|database|data (warehousing|processing|management)).*?help/i",['message_received','ambient'],function(bot,message) {
-controller.hears("sql|mysql|database|data (warehousing|processing|management)",['message_received','ambient'],function(bot,message) {
+controller.hears("C170|C175|C192|C189|sql|mysql|database|data (warehousing|processing|management)",['message_received','ambient'],function(bot,message) {
   if (spamCheck(dataTimer))
   {
     dataTimer = moment();
@@ -97,7 +96,7 @@ controller.hears('/book.*?(math|english|literature|humanities|science|physics|al
     return bot.reply(message, "If I am reading you correctly, <#C14UTM5U5|gen_ed> should be able to help you out!");
   }
 });
-controller.hears('math|english|literature|humanities|science|physics|alegbra|C100',['message_received','ambient'],function(bot,message) {
+controller.hears('math|english|literature|humanities|science|physics|alegbra|ORA1|C100|C132|C164|C168|C182|C255|C278|C455-7|C459|C483|C484',['message_received','ambient'],function(bot,message) {
   if (spamCheck(genEdTimer))
   {
     genEdTimer = moment();
@@ -108,7 +107,7 @@ controller.hears('math|english|literature|humanities|science|physics|alegbra|C10
 
 //Beginning Java catches
 var javaTimer = 0;
-controller.hears('java|OCA|OCP',['message_received','ambient'],function(bot,message) {
+controller.hears('java|OCA|OCP|C169|C195|C196',['message_received','ambient'],function(bot,message) {
   if (spamCheck(javaTimer))
   {
     javaTimer = moment();
@@ -141,7 +140,7 @@ controller.hears('python|C173|scripting and programming foundations',['message_r
 
 //Beginning webdev catches
 var webdevTimer = 0;
-controller.hears('xzys|html|webdev|css|jquery|bootstrap',['message_received','ambient'],function(bot,message) {
+controller.hears('xzys|C376|html|webdev|css|jquery|bootstrap',['message_received','ambient'],function(bot,message) {
   if (spamCheck(webdevTimer))
   {
     webdevTimer = moment();

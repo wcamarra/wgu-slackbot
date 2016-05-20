@@ -8,6 +8,9 @@ var controller = Botkit.slackbot({
 
 // connect the bot to a stream of messages
 controller.spawn({
+// Token for TestSlack
+//  token: ""
+// Token for WGUIT
   token: ""
 }).startRTM()
 
@@ -43,7 +46,7 @@ function spamCheck(spamTimer, durationMinutes)
 }
 //Beginning of Cisco catches
 var ciscoTimer = 0;
-controller.hears('/cisco|ccent|ccna|icnd.?1|icnd.?2|100-101|100-102/i',['message_received','ambient'],function(bot,message) {
+controller.hears('cisco|ccent|ccna|icnd.?1|icnd.?2|100-101|100-102',['message_received','ambient'],function(bot,message) {
   if (spamCheck(ciscoTimer))
   {
     ciscoTimer = moment();
@@ -54,7 +57,7 @@ controller.hears('/cisco|ccent|ccna|icnd.?1|icnd.?2|100-101|100-102/i',['message
 
 //Beginning of Comptia catches
 var comptiaTimer = 0;
-controller.hears('220-801|220-802|220-901|220-902|220-701|220-702|[Nn]?10-006|SY0-401|[Pp][Kk]0-003|[Aa]\\+|[Ss]ecurity+|[Nn]etwork\\+|[Pp]roject\\+',['message_received','ambient'],function(bot,message) {
+controller.hears('220-80[12]|220-90[12]|220-70[12]|[Ll][Xx]0-10[34]|[Nn]10-006|[Ss][Yy]0-401|[Pp][Kk]0-003|[Aa]\\+|[Ss]ecurity\\+|[Nn]etwork\\+|[Pp]roject\\+|[Ll]inux\\+',['message_received','ambient'],function(bot,message) {
   // Call the spamCheck function to make sure we don't botspam ala slackbot
   if (spamCheck(comptiaTimer))
   {
@@ -68,31 +71,25 @@ controller.hears('220-801|220-802|220-901|220-902|220-701|220-702|[Nn]?10-006|SY
 
 //Beginning of Data catches
 var dataTimer = 0;
-controller.hears('/help.*?(sql|mysql|database|data (warehousing|processing|management))|(sql|mysql|database|data (warehousing|processing|management)).*?help/i',['message_received','ambient'],function(bot,message) {
-  if (spamCheck(dataTimer))
-  {
-    dataTimer = moment();
-    return bot.reply(message, "INSERT INTO <#C14UM3XCZ|data> VALUES ('this', 'conversation')");
-  }
-});
-controller.hears('/book.*?(sql|mysql|database|data (warehousing|processing|management))|(sql|mysql|database|data (warehousing|processing|management)).*?book/i',['message_received','ambient'],function(bot,message) {
+controller.hears('book.*?(sql|mysql|database|data (warehousing|processing|management))|(sql|mysql|database|data (warehousing|processing|management)).*?book',['message_received','ambient'],function(bot,message) {
   if (spamCheck(dataTimer))
   {
     dataTimer = moment();
     return bot.reply(message, "I think you should JOIN the conversation in <#C14UM3XCZ|data>!");
   }
 });
+//controller.hears("/help.*?(sql|mysql|database|data (warehousing|processing|management))|(sql|mysql|database|data (warehousing|processing|management)).*?help/i",['message_received','ambient'],function(bot,message) {
+controller.hears("sql|mysql|database|data (warehousing|processing|management)",['message_received','ambient'],function(bot,message) {
+  if (spamCheck(dataTimer))
+  {
+    dataTimer = moment();
+    return bot.reply(message, "INSERT INTO <#C14UM3XCZ|data> VALUES ('this', 'conversation')");
+  }
+});
 //End of Data catches
 
 //Beginning of gen_ed catches
 var genEdTimer = 0;
-controller.hears('/help.*?(math|english|literature|humanities|science|physics|alegbra)|(math|english|literature|humanities|science|physics|alegbra).*?help/i',['message_received','ambient'],function(bot,message) {
-  if (spamCheck(genEdTimer))
-  {
-    genEdTimer = moment();
-    return bot.reply(message, "Sounds like you should ask over in<#C14UTM5U5|gen_ed>!");
-  }
-});
 controller.hears('/book.*?(math|english|literature|humanities|science|physics|alegbra)|(math|english|literature|humanities|science|physics|alegbra).*?book/i',['message_received','ambient'],function(bot,message) {
   if (spamCheck(genEdTimer))
   {
@@ -100,11 +97,18 @@ controller.hears('/book.*?(math|english|literature|humanities|science|physics|al
     return bot.reply(message, "If I am reading you correctly, <#C14UTM5U5|gen_ed> should be able to help you out!");
   }
 });
+controller.hears('math|english|literature|humanities|science|physics|alegbra|C100',['message_received','ambient'],function(bot,message) {
+  if (spamCheck(genEdTimer))
+  {
+    genEdTimer = moment();
+    return bot.reply(message, "Sounds like you should ask over in <#C14UTM5U5|gen_ed>!");
+  }
+});
 //End of gen_ed catches
 
 //Beginning Java catches
 var javaTimer = 0;
-controller.hears('/java|OCA|OCP/i',['message_received','ambient'],function(bot,message) {
+controller.hears('java|OCA|OCP',['message_received','ambient'],function(bot,message) {
   if (spamCheck(javaTimer))
   {
     javaTimer = moment();
@@ -115,7 +119,7 @@ controller.hears('/java|OCA|OCP/i',['message_received','ambient'],function(bot,m
 
 //Beginning of Microsoft catches
 var msTimer = 0;
-controller.hears('/70-41[0-2]|mcsa|help.*?\\bmicrosoft\\b.*?|.*?\\bmicrosoft\\b.*?help/i',['message_received','ambient'],function(bot,message) {
+controller.hears('C18[5-7]|70-41[0-2]|mcsa|help.*?\\bmicrosoft\\b|70-41[0-2]|mcsa|C18[5-7].*?|.*?\\bmicrosoft|70-41[0-2]|mcsa|C18[5-7]\\b.*?help',['message_received','ambient'],function(bot,message) {
   if (spamCheck(msTimer))
   {
     msTimer = moment();
@@ -126,7 +130,7 @@ controller.hears('/70-41[0-2]|mcsa|help.*?\\bmicrosoft\\b.*?|.*?\\bmicrosoft\\b.
 
 //Beginning Python catches
 var pythonTimer = 0;
-controller.hears('/python/i',['message_received','ambient'],function(bot,message) {
+controller.hears('python|C173|scripting and programming foundations',['message_received','ambient'],function(bot,message) {
   if (spamCheck(pythonTimer))
   {
     pythonTimer = moment();
@@ -137,7 +141,7 @@ controller.hears('/python/i',['message_received','ambient'],function(bot,message
 
 //Beginning webdev catches
 var webdevTimer = 0;
-controller.hears('/html|css|jquery|bootstrap|/i',['message_received','ambient'],function(bot,message) {
+controller.hears('xzys|html|webdev|css|jquery|bootstrap',['message_received','ambient'],function(bot,message) {
   if (spamCheck(webdevTimer))
   {
     webdevTimer = moment();
@@ -167,6 +171,13 @@ controller.hears('\\b[Rr]eview\\b.*?\\b[Rr]esume\\b|\\b[Rr]esume\\b.*?\\b[Rr]evi
   {
     resumeTimer = moment();
     return bot.reply(message, "Did I hear someone say resume? Report to <#C14CFRRTL|careerchat> soldier, on the double!");
+  }
+});
+controller.hears('job interview|interview for|',['message_received','ambient'],function(bot,message) {
+  if (spamCheck(resumeTimer))
+  {
+    resumeTimer = moment();
+    return bot.reply(message, "Don't sweat the interview! Head over to <#C14CFRRTL|careerchat> to get some tips!");
   }
 });
 //End of resume catches
